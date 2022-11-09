@@ -1,0 +1,4 @@
+﻿●備考
+	_UnityStoreAssetフォルダはコミットしない
+	Pluginsフォルダはコミットしない
+	Resourcesフォルダはコミットしない
