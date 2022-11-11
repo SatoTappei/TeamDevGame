@@ -26,6 +26,14 @@ public class PlayerUnit : MonoBehaviour
 
     void Update()
     {
-        
+        // きちんとカードがソートするかどうかのテスト、下記TODOが出来次第消す
+        if(Input.GetKeyDown(KeyCode.Space)) OnMove();
+    }
+
+    // TODO:手札もしくは場に子オブジェクトの数が変更された場合…のSubscribeを追加して
+    //      手札がソートするようにする
+    void OnMove()
+    {
+        _playerCommand.SortHand();
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Linq;
 
 /// <summary>
 /// プレイヤーの入力に応じてカードを場に出す
@@ -10,6 +11,24 @@ public class PlayerCommand : MonoBehaviour
 {
     [SerializeField] Transform _hand;
     [SerializeField] Transform _field;
+
+    // TODO:ここ以外でも使うならば便利クラスを作って移す
+    /// <summary>ゲーム開始時の手札の枚数</summary>
+    readonly int DefaultHand = 10;
+
+    /// <summary>
+    /// ソート用の辞書型、起動時にヒエラルキーに並んでいた順にソートさせる
+    /// </summary>
+    Dictionary<string, int> _sortDic = new Dictionary<string, int>();
+
+    void Awake()
+    {
+        foreach (Transform trans in _hand)
+        {
+            Debug.Log(trans.gameObject.name + " " + trans.GetSiblingIndex());
+            _sortDic.Add(trans.gameObject.name, trans.GetSiblingIndex());
+        }
+    }
 
     void Start()
     {
@@ -48,5 +67,19 @@ public class PlayerCommand : MonoBehaviour
             card.SetParent(_field);
             return prev;
         }
+    }
+
+    /// <summary>手札をソート(ヒエラルキーの順番を弄る)する</summary>
+    public void SortHand()
+    {
+        // SetSiblingIndex()は呼んだ時点でソートされるのでループ中に順番が変わってしまう
+        // なので一度リストに格納してそれをソートし、反映させていく。
+        // SetSiblingIndexの引数が固定なのは要素数以上を指定すると"一番下"に配置されるため
+        List<Transform> list = new List<Transform>();
+        foreach (Transform trans in _hand)
+            list.Add(trans);
+
+        foreach (Transform trans in list.OrderBy(t => _sortDic[t.gameObject.name]).ToList())
+            trans.SetSiblingIndex(DefaultHand + 1);
     }
 }
