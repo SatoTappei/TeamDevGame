@@ -9,3 +9,5 @@
 	CardDataManager内の_dic及びGetSO関数はstaticにした。
 	カードを管理する辞書型は1以上あるはずがないし、全てのカードでFindObjectOfType()関数を
 	呼ぶのは処理負荷がかかると考えたため。
+
+	UniRx導入済み

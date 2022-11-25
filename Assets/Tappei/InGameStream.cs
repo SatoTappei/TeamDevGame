@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 /// <summary>
 /// ゲームプレイの進行を制御する
 /// </summary>
-public class PlaySceneManager : MonoBehaviour
+public class InGameStream : MonoBehaviour
 {
     /// <summary>ゲームの勝敗が決まる勝利数</summary>
     readonly int _gameSetPoint = 4;
@@ -16,13 +16,16 @@ public class PlaySceneManager : MonoBehaviour
     [SerializeField] PlayerUnit _player1;
     [SerializeField] PlayerUnit _player2;
 
-    async void Start()
+    IEnumerator Start()
     {
-        await StartStag();
+        yield return StartStag();
+        _player1.Init();
+        _player2.Init();
 
         _isGameSet = true; // テスト用、消してよし
         while (!_isGameSet)
         {
+
             // 両者がカードを選ぶ
             // カードをマウスオーバーしたら拡大して表示される
             // クリックしたら場に出る
@@ -45,9 +48,9 @@ public class PlaySceneManager : MonoBehaviour
     }
 
     /// <summary>ゲームスタートの演出</summary>
-    async UniTask StartStag()
+    IEnumerator StartStag()
     {
         // ここに演出の処理を書く
-        await UniTask.Delay(1000);
+        yield return null;
     }
 }

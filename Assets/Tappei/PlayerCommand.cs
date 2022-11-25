@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System.Linq;
+using UniRx;
 
 /// <summary>
 /// プレイヤーの入力に応じてカードを場に出す
@@ -21,23 +22,20 @@ public class PlayerCommand : MonoBehaviour
     /// </summary>
     Dictionary<string, int> _sortDic = new Dictionary<string, int>();
 
-    void Awake()
-    {
-        foreach (Transform trans in _hand)
-        {
-            Debug.Log(trans.gameObject.name + " " + trans.GetSiblingIndex());
-            _sortDic.Add(trans.gameObject.name, trans.GetSiblingIndex());
-        }
-    }
-
     void Start()
     {
-        
+
     }
 
     void Update()
     {
         
+    }
+
+    /// <summary>ソートできるようにカードを辞書型に追加する</summary>
+    public void AddSortDic(GameObject card)
+    {
+        _sortDic.Add(card.name, card.transform.GetSiblingIndex());
     }
 
     /// <summary>カードを場に出す</summary>
@@ -49,6 +47,8 @@ public class PlayerCommand : MonoBehaviour
         Transform prev = ChangeCard(card);
         // 戻ってきたカードは手札に加える
         if (prev != null) prev.SetParent(_hand);
+        // ソートする
+        SortHand();
     }
 
     /// <summary>場のカードを交換する</summary>
@@ -72,6 +72,7 @@ public class PlayerCommand : MonoBehaviour
     /// <summary>手札をソート(ヒエラルキーの順番を弄る)する</summary>
     public void SortHand()
     {
+        Debug.Log("シャッフル");
         // SetSiblingIndex()は呼んだ時点でソートされるのでループ中に順番が変わってしまう
         // なので一度リストに格納してそれをソートし、反映させていく。
         // SetSiblingIndexの引数が固定なのは要素数以上を指定すると"一番下"に配置されるため
