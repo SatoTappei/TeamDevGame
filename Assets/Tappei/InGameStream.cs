@@ -22,10 +22,11 @@ public class InGameStream : MonoBehaviour
         _player1.Init();
         _player2.Init();
 
-        _isGameSet = true; // テスト用、消してよし
+        _isGameSet = false; // テスト用
         while (!_isGameSet)
         {
-
+            _player1.TurnStart();
+            _player2.TurnStart();
             // 両者がカードを選ぶ
             // カードをマウスオーバーしたら拡大して表示される
             // クリックしたら場に出る
@@ -36,6 +37,9 @@ public class InGameStream : MonoBehaviour
             // カードを減らす
             // ゲームセットか判定
             // ゲームセットならループを抜ける
+
+            // ★注意:この処理を消すと無限ループになって止まるのでテスト中は消さないこと
+            _isGameSet = true;
         }
 
         // 結果表示の演出
