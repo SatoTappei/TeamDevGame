@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cysharp.Threading.Tasks;
+using UniRx;
 
 /// <summary>
 /// ゲームプレイの進行を制御する
@@ -15,9 +15,11 @@ public class InGameStream : MonoBehaviour
 
     [SerializeField] PlayerUnit _player1;
     [SerializeField] PlayerUnit _player2;
+    [SerializeField] CommonUI _commonUI;
 
     IEnumerator Start()
     {
+        _commonUI.Init();
         yield return StartStag();
         _player1.Init();
         _player2.Init();
@@ -27,11 +29,15 @@ public class InGameStream : MonoBehaviour
         {
             _player1.TurnStart();
             _player2.TurnStart();
-            // 両者がカードを選ぶ
-            // カードをマウスオーバーしたら拡大して表示される
-            // クリックしたら場に出る
-            // 元々場にあったカードはスライドして戻る
-            // きちんと並び替える
+            // 両者がカードを選ぶまで待つ
+            yield return new WaitUntil(() => _player1.IsSelected);
+            yield return new WaitUntil(() => _player2.IsSelected);
+            // 勝敗の判定を行う
+            int win = new BattleSystem().Battle(_player1.GetSelectedCard(), _player2.GetSelectedCard());
+            // 勝敗の表示をする
+            // TODO:現状はプレイヤー1が勝ったら勝ち、負けたら負けと表示するが
+            //      後々対戦を実装するので勝った側には勝ち、負けた側には負けと表示させられるようにする
+            yield return _commonUI.SetBattleResult(win);
 
             // どちらもカードを出したら判定
             // カードを減らす

@@ -13,7 +13,6 @@ public class PlayerCommand : MonoBehaviour
 {
     [SerializeField] Transform _hand;
     [SerializeField] Transform _field;
-    //[SerializeField] Button _submitButton;
 
     // TODO:ここ以外でも使うならば便利クラスを作って移す
     /// <summary>ゲーム開始時の手札の枚数</summary>
@@ -26,7 +25,7 @@ public class PlayerCommand : MonoBehaviour
 
     void Start()
     {
-        //_submitButton.onClick.AddListener(SubmitCard);
+
     }
 
     void Update()
@@ -84,22 +83,5 @@ public class PlayerCommand : MonoBehaviour
 
         foreach (Transform trans in list.OrderBy(t => _sortDic[t.gameObject.name]).ToList())
             trans.SetSiblingIndex(DefaultHand + 1);
-    }
-
-    /// <summary>場に出されたカードで決定する</summary>
-    public void SubmitCard()
-    {
-        // TODO:決定ボタンを押した際の処理を書く
-        //      _fieldの子オブジェクトを取得 <= これが選択したカード
-        // 
-        // BattleSystem(仮)に通知して戦闘処理
-        //if (_field.childCount == 0)
-        //{
-        //    Debug.Log("カードが選択されていません");
-        //}
-        //else
-        //{
-        //    Debug.Log(_field.GetChild(0));
-        //}
     }
 }

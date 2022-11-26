@@ -14,9 +14,17 @@ public class PlayerUnit : MonoBehaviour
     [SerializeField] Button _submitButton;
     /// <summary>手持ちのカードは10枚で固定なので配列で管理する</summary>
     [SerializeField] CardUnit[] _cards;
-    
+
+    /// <summary>このターン選択したカード</summary>
+    CardUnit _selectedCard;
     /// <summary>現在の勝利数</summary>
     int _winCount;
+
+    /// <summary>
+    /// このターンに出すカードを決定したか
+    /// カードを出した状態で決定ボタンを押すとtrueになる
+    /// </summary>
+    public bool IsSelected { get; private set; }
 
     void Start()
     {
@@ -35,8 +43,8 @@ public class PlayerUnit : MonoBehaviour
 
     public void Init()
     {
-        // 決定ボタンに処理を割り当てる
-        _submitButton.onClick.AsObservable().Subscribe(b => Debug.Log(b));
+        // 決定ボタンにカード選択完了の処理を割り当てる
+        _submitButton.onClick.AddListener(() => ClickedSubmitButton());
 
         foreach (CardUnit card in _cards)
         {
@@ -65,5 +73,32 @@ public class PlayerUnit : MonoBehaviour
     public void TurnEnd()
     {
         // 処理を書く
+    }
+
+    /// <summary>このターン選択したカードを取得する</summary>
+    public CardUnit GetSelectedCard() => _selectedCard;
+
+    /// <summary>
+    /// 決定ボタンをクリックしたときの処理
+    /// TODO:後々に別の専用場所に移すことを考慮する
+    /// </summary>
+    void ClickedSubmitButton()
+    {
+        // 一度押されたらこのターンは押せないようにする
+        _submitButton.interactable = false;
+        // 出すカードを決定したフラグを立てる
+        IsSelected = true;
+        // 場の子オブジェクトから取得し、それを選択したカードとする
+        _selectedCard = _field.GetComponentInChildren<CardUnit>();
+
+        // 場に出したカード以外を非アクティブ状態にする
+        foreach (CardUnit card in _cards)
+        {
+            // TODO:現状は場の一番目のオブジェクトを取得して選択したカードを見ているが
+            //      選択したカードという変数を作ることも考慮する
+            if (_selectedCard == card) continue;
+
+            card.Inactive(false);
+        }
     }
 }
