@@ -701,6 +701,7 @@ MonoBehaviour:
   _playerCommand: {fileID: 719417016}
   _field: {fileID: 1612776172}
   _submitButton: {fileID: 8607534315319663475}
+  _counter: {fileID: 1577202393}
   _cards:
   - {fileID: 656059848}
   - {fileID: 1423083510}
@@ -797,6 +798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startEffect: {fileID: 2006218012}
   _resultEffect: {fileID: 328161394}
+  _nextTurnEffect: {fileID: 0}
   _player1: {fileID: 719417015}
   _player2: {fileID: 1086124079}
   _commonUI: {fileID: 740969391}
@@ -931,6 +933,55 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4788837721258173057, guid: 0043d90f89b59294d8fc11dc438b0dcc, type: 3}
   m_PrefabInstance: {fileID: 760804531}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &761158778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 761158779}
+  - component: {fileID: 761158780}
+  m_Layer: 5
+  m_Name: NextTurnEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &761158779
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761158778}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2019202192}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &761158780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761158778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21dab708f092e0644a4623f8ddeb4bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &800790124
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1870,7 +1921,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 9
+  m_Text: 0
 --- !u!222 &1079164557
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1936,6 +1987,7 @@ MonoBehaviour:
   _playerCommand: {fileID: 1086124080}
   _field: {fileID: 1976641148}
   _submitButton: {fileID: 1986780691}
+  _counter: {fileID: 1079164556}
   _cards:
   - {fileID: 1847694917}
   - {fileID: 1918824320}
@@ -3149,7 +3201,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 9
+  m_Text: 0
 --- !u!222 &1577202394
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3947,6 +3999,7 @@ RectTransform:
   m_Children:
   - {fileID: 2006218011}
   - {fileID: 328161393}
+  - {fileID: 761158779}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

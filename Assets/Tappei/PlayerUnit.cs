@@ -19,8 +19,7 @@ public class PlayerUnit : MonoBehaviour
     /// <summary>このターン選択したカード</summary>
     CardUnit _selectedCard;
     /// <summary>現在の勝利数</summary>
-    int _winCount;
-
+    public int WinCount { get; private set; }
     /// <summary>
     /// このターンに出すカードを決定したか
     /// カードを出した状態で決定ボタンを押すとtrueになる
@@ -103,13 +102,13 @@ public class PlayerUnit : MonoBehaviour
         }
     }
 
-    /// <summary>このターンのバトルの結果をUIに反映させる</summary>
+    /// <summary>このターンのバトルの結果を反映させる</summary>
     public void SetBattleResult(int result)
     {
         // 現状は勝利以外でUIを更新することがない
         if (result != 1) return;
 
-        _winCount++;
-        _counter.text =_winCount.ToString();
+        WinCount++;
+        _counter.text =WinCount.ToString();
     }
 }

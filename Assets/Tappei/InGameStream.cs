@@ -15,6 +15,7 @@ public class InGameStream : MonoBehaviour
 
     [SerializeField] StartEffect _startEffect;
     [SerializeField] ResultEffect _resultEffect;
+    [SerializeField] NextTurnEffect _nextTurnEffect;
     [SerializeField] PlayerUnit _player1;
     [SerializeField] PlayerUnit _player2;
     [SerializeField] CommonUI _commonUI;
@@ -26,11 +27,11 @@ public class InGameStream : MonoBehaviour
         _player1.Init();
         _player2.Init();
 
-        _isGameSet = false; // テスト用
-        while (!_isGameSet)
+        while (true)
         {
             _player1.TurnStart();
             _player2.TurnStart();
+
             // 両者がカードを選ぶまで待つ
             yield return new WaitUntil(() => _player1.IsSelected);
             yield return new WaitUntil(() => _player2.IsSelected);
@@ -46,13 +47,18 @@ public class InGameStream : MonoBehaviour
             //      後々対戦を実装するので勝った側には勝ち、負けた側には負けと表示させられるようにする
             yield return _commonUI.SetBattleResult(resultP1);
 
-            // どちらもカードを出したら判定
-            // カードを減らす
-            // ゲームセットか判定
-            // ゲームセットならループを抜ける
+            // ゲーム終了の判定、ゲームセットならループを抜ける
+            if (_player1.WinCount == _gameSetPoint ||
+                _player2.WinCount == _gameSetPoint)
+            {
+                break;
+            }
 
-            // ★注意:この処理を消すと無限ループになって止まるのでテスト中は消さないこと
-            _isGameSet = true;
+            // ターン最後の処理
+            _player1.TurnEnd();
+            _player2.TurnEnd();
+            // "次のターン"の演出
+            yield return _nextTurnEffect.EffectCoroutine();
         }
 
         // 結果表示の演出
