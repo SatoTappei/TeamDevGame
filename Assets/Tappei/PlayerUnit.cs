@@ -33,12 +33,7 @@ public class PlayerUnit : MonoBehaviour
 
     void Update()
     {
-        // TODO:決定ボタンを押した際の処理を作る
-        //      場に何も出していない状態なら何も起きない
-        //      場にカードを出している状態ならカードを選択完了フラグを立てる
-        //      選択完了フラグが立っている場合はカードを選ぶことが出来ない
-        //      両方のプレイヤーの選択フラグが立った場合は勝敗の判定フェーズに移る。
-        // 決定ボタン:場に何もカードがないときは押せない
+
     }
 
     public void Init()
@@ -78,6 +73,8 @@ public class PlayerUnit : MonoBehaviour
     public void TurnEnd()
     {
         // 処理を書く
+        // 場のカードをゴミ箱に移動させる
+        _playerCommand.CleanField();
     }
 
     /// <summary>このターン選択したカードを取得する</summary>

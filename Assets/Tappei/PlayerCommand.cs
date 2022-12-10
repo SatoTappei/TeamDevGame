@@ -13,6 +13,7 @@ public class PlayerCommand : MonoBehaviour
 {
     [SerializeField] Transform _hand;
     [SerializeField] Transform _field;
+    [SerializeField] Transform _garbageCan;
 
     // TODO:ここ以外でも使うならば便利クラスを作って移す
     /// <summary>ゲーム開始時の手札の枚数</summary>
@@ -61,14 +62,14 @@ public class PlayerCommand : MonoBehaviour
         if (_field.transform.childCount == 0)
         {
             // 場にカードがない場合は、そのカードを場にセットしてnullを返す
-            card.SetParent(_field);
+            card?.SetParent(_field);
             return null;
         }
         else
         {
             // 場にカードがある場合は、交換して前のカードを返す
             Transform prev = _field.transform.GetChild(0);
-            card.SetParent(_field);
+            card?.SetParent(_field);
             return prev;
         }
     }
@@ -85,5 +86,15 @@ public class PlayerCommand : MonoBehaviour
 
         foreach (Transform trans in _tempList.OrderBy(t => _sortDic[t.gameObject.name]).ToList())
             trans.SetSiblingIndex(DefaultHand + 1);
+    }
+
+    /// <summary>
+    /// 場のカードをゴミ箱に移すことで
+    /// 決定ボタンを再度表示できるようにする
+    /// </summary>
+    public void CleanField()
+    {
+        Transform prev = ChangeCard(null);
+        prev.SetParent(_garbageCan);
     }
 }
