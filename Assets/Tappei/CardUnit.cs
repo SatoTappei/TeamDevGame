@@ -19,10 +19,11 @@ public class CardUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] CardTag _cardTag;
 
     Transform _field;
-    CardDataSO _so;
-
     /// <summary>選択可能かのフラグ</summary>
     bool _isSelectable;
+
+    // SOは外部から参照できるようにしておく
+    public CardDataSO So { get; private set; }
 
     /// <summary>クリックされたときに行う処理を外部から追加できるようにしておく</summary>
     public UnityAction<Transform> OnClicked;
@@ -41,7 +42,7 @@ public class CardUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void Init(Transform field)
     {
         _field = field;
-        _so = CardDataManager.GetSO(_cardTag);
+        So = CardDataManager.GetSO(_cardTag);
         _isSelectable = true;
         // TOOD: _soのデータを実際のカードに反映する処理
     }

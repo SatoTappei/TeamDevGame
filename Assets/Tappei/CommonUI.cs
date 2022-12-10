@@ -38,9 +38,9 @@ public class CommonUI : MonoBehaviour
         {
             _centerText.text = "•‰‚¯";
         }
-        else
+        else if(side == 0)
         {
-            Debug.LogError("Ÿ”s‚ÌŒ‹‰Ê‚Í1‚©2‚Å‚·: " + side);
+            _centerText.text = "ˆø‚«•ª‚¯";
         }
 
         // TODO:‰‰o‚ğs‚¤

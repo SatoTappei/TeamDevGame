@@ -13,6 +13,8 @@ public class InGameStream : MonoBehaviour
     /// <summary>決着がついたかを判定する</summary>
     bool _isGameSet;
 
+    [SerializeField] StartEffect _startEffect;
+    [SerializeField] ResultEffect _resultEffect;
     [SerializeField] PlayerUnit _player1;
     [SerializeField] PlayerUnit _player2;
     [SerializeField] CommonUI _commonUI;
@@ -20,7 +22,7 @@ public class InGameStream : MonoBehaviour
     IEnumerator Start()
     {
         _commonUI.Init();
-        yield return StartStag();
+        yield return _startEffect.EffectCoroutine();
         _player1.Init();
         _player2.Init();
 
@@ -50,17 +52,11 @@ public class InGameStream : MonoBehaviour
 
         // 結果表示の演出
         // もう一度やるか選ぶ
+        yield return _resultEffect.EffectCoroutine();
     }
 
     void Update()
     {
         
-    }
-
-    /// <summary>ゲームスタートの演出</summary>
-    IEnumerator StartStag()
-    {
-        // ここに演出の処理を書く
-        yield return null;
     }
 }
