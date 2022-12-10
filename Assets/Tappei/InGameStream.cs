@@ -35,11 +35,16 @@ public class InGameStream : MonoBehaviour
             yield return new WaitUntil(() => _player1.IsSelected);
             yield return new WaitUntil(() => _player2.IsSelected);
             // 勝敗の判定を行う
-            int win = new BattleSystem().Battle(_player1.GetSelectedCard(), _player2.GetSelectedCard());
+            BattleSystem bs = new BattleSystem();
+            int resultP1 = bs.Battle(_player1.GetSelectedCard(), _player2.GetSelectedCard());
+            int resultP2 = bs.Battle(_player2.GetSelectedCard(), _player1.GetSelectedCard());
+            // それぞれのプレイヤーのUIを更新
+            _player1.SetBattleResult(resultP1);
+            _player2.SetBattleResult(resultP2);
             // 勝敗の表示をする
             // TODO:現状はプレイヤー1が勝ったら勝ち、負けたら負けと表示するが
             //      後々対戦を実装するので勝った側には勝ち、負けた側には負けと表示させられるようにする
-            yield return _commonUI.SetBattleResult(win);
+            yield return _commonUI.SetBattleResult(resultP1);
 
             // どちらもカードを出したら判定
             // カードを減らす

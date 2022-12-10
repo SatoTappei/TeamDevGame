@@ -34,7 +34,7 @@ public class CommonUI : MonoBehaviour
         {
             _centerText.text = "Ÿ‚¿";
         }
-        else if(side == 2)
+        else if(side == -1)
         {
             _centerText.text = "•‰‚¯";
         }

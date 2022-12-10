@@ -23,6 +23,9 @@ public class PlayerCommand : MonoBehaviour
     /// </summary>
     Dictionary<string, int> _sortDic = new Dictionary<string, int>();
 
+    /// <summary>ソート時に使う一時保存用のリスト</summary>
+    List<Transform> _tempList = new List<Transform>();
+
     void Start()
     {
 
@@ -73,15 +76,14 @@ public class PlayerCommand : MonoBehaviour
     /// <summary>手札をソート(ヒエラルキーの順番を弄る)する</summary>
     public void SortHand()
     {
-        Debug.Log("シャッフル");
         // SetSiblingIndex()は呼んだ時点でソートされるのでループ中に順番が変わってしまう
         // なので一度リストに格納してそれをソートし、反映させていく。
         // SetSiblingIndexの引数が固定なのは要素数以上を指定すると"一番下"に配置されるため
-        List<Transform> list = new List<Transform>();
+        _tempList.Clear();
         foreach (Transform trans in _hand)
-            list.Add(trans);
+            _tempList.Add(trans);
 
-        foreach (Transform trans in list.OrderBy(t => _sortDic[t.gameObject.name]).ToList())
+        foreach (Transform trans in _tempList.OrderBy(t => _sortDic[t.gameObject.name]).ToList())
             trans.SetSiblingIndex(DefaultHand + 1);
     }
 }

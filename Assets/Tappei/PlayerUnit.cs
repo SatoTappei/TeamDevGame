@@ -12,6 +12,7 @@ public class PlayerUnit : MonoBehaviour
     [SerializeField] PlayerCommand _playerCommand;
     [SerializeField] Transform _field;
     [SerializeField] Button _submitButton;
+    [SerializeField] Text _counter;
     /// <summary>手持ちのカードは10枚で固定なので配列で管理する</summary>
     [SerializeField] CardUnit[] _cards;
 
@@ -100,5 +101,15 @@ public class PlayerUnit : MonoBehaviour
 
             card.Inactive(false);
         }
+    }
+
+    /// <summary>このターンのバトルの結果をUIに反映させる</summary>
+    public void SetBattleResult(int result)
+    {
+        // 現状は勝利以外でUIを更新することがない
+        if (result != 1) return;
+
+        _winCount++;
+        _counter.text =_winCount.ToString();
     }
 }
