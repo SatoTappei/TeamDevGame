@@ -59,14 +59,19 @@ public class PlayerUnit : MonoBehaviour
         // 場に出されたことを検知するために子オブジェクトの数が変わった瞬間を検知する
         _field.ObserveEveryValueChanged(t => t.childCount)
               .Skip(1)
-              .Subscribe(_ => _submitButton.interactable = true);
+              .Subscribe(_ => _submitButton.interactable = true)
+              .AddTo(this);
     }
 
     /// <summary>ターンの初めに1回だけ呼ばれる処理</summary>
     public void TurnStart()
     {
+        IsSelected = false;
         // カードを出すまでボタンを押せないようにする
         _submitButton.interactable = false;
+        // 全てのカードをアクティブにする
+        foreach (CardUnit card in _cards)
+            card.Inactive(true);
     }
 
     /// <summary>ターン終了時に1回だけ呼ばれる処理</summary>
@@ -107,7 +112,7 @@ public class PlayerUnit : MonoBehaviour
     {
         // 現状は勝利以外でUIを更新することがない
         if (result != 1) return;
-
+        Debug.Log("よばれる");
         WinCount++;
         _counter.text =WinCount.ToString();
     }
