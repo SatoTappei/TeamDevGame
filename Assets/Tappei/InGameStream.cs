@@ -70,4 +70,11 @@ public class InGameStream : MonoBehaviour
     {
         
     }
+
+    /// <summary>ƒV[ƒ“‚ÌÄ“Ç‚İ‚İ(‰¼)</summary>
+    public void LoadSceneSelf()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(
+            UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
 }

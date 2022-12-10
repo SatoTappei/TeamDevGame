@@ -9,12 +9,17 @@ public class CardDataManager : MonoBehaviour
 {
     [SerializeField] CardDataSO[] _sos;
     /// <summary>タグをキーにSOを取得するための辞書型</summary>
-    static Dictionary<CardTag, CardDataSO> _dic = new Dictionary<CardTag, CardDataSO>();
+    static Dictionary<CardTag, CardDataSO> _dic;
 
     void Awake()
     {
-        foreach (CardDataSO so in _sos)
-            _dic.Add(so.Tag, so);
+        if (_dic == null)
+        {
+            _dic = new Dictionary<CardTag, CardDataSO>();
+
+            foreach (CardDataSO so in _sos)
+                _dic.Add(so.Tag, so);
+        }
     }
 
     void Start()
