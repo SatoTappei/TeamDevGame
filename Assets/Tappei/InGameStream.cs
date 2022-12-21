@@ -10,8 +10,6 @@ public class InGameStream : MonoBehaviour
 {
     /// <summary>ƒQ[ƒ€‚ÌŸ”s‚ªŒˆ‚Ü‚éŸ—˜”</summary>
     readonly int _gameSetPoint = 4;
-    /// <summary>Œˆ’…‚ª‚Â‚¢‚½‚©‚ğ”»’è‚·‚é</summary>
-    bool _isGameSet;
 
     [SerializeField] StartEffect _startEffect;
     [SerializeField] ResultEffect _resultEffect;

@@ -7,16 +7,6 @@ using UnityEngine;
 /// </summary>
 public class BattleSystem
 {
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
     /// <summary>Ÿ”s‚Ì”»’è‚ğs‚¤</summary>
     /// <returns>Ÿ—˜:1 ”s–k:-1 ˆø‚«•ª‚¯:0</returns>
     public int Battle(CardUnit myself, CardUnit enemy)
